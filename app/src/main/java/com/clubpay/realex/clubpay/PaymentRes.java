@@ -41,9 +41,9 @@ public class PaymentRes extends AppCompatActivity {
         String amountString = response.getAmount();
         int beginning = amountString.indexOf("AMOUNT") + 3;
         int end = amountString.indexOf("\"");
-        amountString.substring(beginning, end);
+        String amt = amountString.substring(beginning, end);
         TextView amount = (TextView) findViewById(R.id.amount);
-        amount.setText("10.00");
+        amount.setText(amt);
     }
 
 }
