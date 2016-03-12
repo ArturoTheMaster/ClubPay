@@ -43,9 +43,12 @@ public class HPP extends AppCompatActivity implements HPPManagerListener {
     private HPPManager initHppManager(String amount){
         HPPManager manager = new HPPManager();
 
-        manager.setHppRequestProducerURL("http://10.0.2.2:8080/hppRequestProcedure");
+        String moteId = getIntent().getStringExtra(MainActivity.HPP_MOTE_ID);
+        manager.setHppRequestProducerURL("http://clubpay.vrwuqqpad3.eu-west-1.elasticbeanstalk.com/generateJsonRequest");
         manager.setHppURL("https://hpp.test.realexpayments.com/pay");
         manager.setHppResponseConsumerURL("http://10.0.2.2:8080/hppResponseConsumer");
+        manager.setSupplementaryData(MainActivity.HPP_MOTE_ID,moteId);
+
 
 
 

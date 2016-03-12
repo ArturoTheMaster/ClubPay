@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
     private BeaconManager beaconManager;
 
+    public static  String HPP_MOTE_ID = "moteId";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                         "monitored region",
                         UUID.fromString("b9407f30-f5f8-466e-aff9-25556b57fe6d"),
                         24839, 61143));
+                getIntent().putExtra(HPP_MOTE_ID, "b9407f30-f5f8-466e-aff9-25556b57fe6d");
             }
         });
 
@@ -126,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
     private class HttpRequestTask extends AsyncTask<Void, Void, ResponseEntity> {
 
         private  String AMAZONE_URL_TMP = "http://clubpay.vrwuqqpad3.eu-west-1.elasticbeanstalk.com";
+
         @Override
         protected ResponseEntity doInBackground(Void... params) {
             try {
@@ -138,6 +142,14 @@ public class MainActivity extends AppCompatActivity {
                 model.setImeiNo(imeiNo);
                 String url = AMAZONE_URL_TMP.concat("/payAction?phoneId=").concat(imeiNo);
                 ResponseEntity ent = restTemplate.postForEntity(url, model, Boolean.class);
+                Boolean isAlreadyReg = (Boolean)ent.getBody();
+                if(!isAlreadyReg){
+                    //TODO => pass the payment amount to the HPP act.
+                    Intent intent = new Intent(getApplicationContext(), HPP.class);
+                    String moteId=getIntent().getStringExtra(MainActivity.HPP_MOTE_ID);
+                    intent.putExtra(MainActivity.HPP_MOTE_ID, moteId);
+                    startActivity(intent);
+                }
                 //Map<String,String> queryParameter = new HashMap<String,String>();
                 //queryParameter.put("phoneId",imeiNo);
                 //ResponseEntity ent = restTemplate.postForEntity("http://localhost:8080/payAction", model, Boolean.class, queryParameter);
