@@ -34,8 +34,13 @@ public class PaymentRes extends AppCompatActivity {
         Gson gson = new GsonBuilder().create();
         HPPResponse response = gson.fromJson(jsonResponse, HPPResponse.class);
 
+
         TextView payResult = (TextView) findViewById(R.id.res_text);
         payResult.setText("Successfull");
+
+        String amountString = response.getAmount();
+        TextView amount = (TextView) findViewById(R.id.amount);
+        amount.setText("50.00");
     }
 
 }

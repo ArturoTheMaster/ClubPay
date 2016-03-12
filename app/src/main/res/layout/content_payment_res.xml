@@ -22,7 +22,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/res_text"
-        android:layout_toRightOf="@id/lbl_result_text" />
+        android:layout_toRightOf="@id/lbl_result_text"
+        android:paddingLeft="@dimen/activity_horizontal_margin"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lbl_amount"
+        android:layout_below="@id/res_text"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:text="@string/lbl_amount"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/amount"
+        android:layout_toRightOf="@id/lbl_amount"
+        android:paddingLeft="@dimen/activity_horizontal_margin"/>
 
 
 </RelativeLayout>
