@@ -12,4 +12,17 @@
     tools:context="com.clubpay.realex.clubpay.PaymentRes"
     tools:showIn="@layout/activity_payment_res">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lbl_result_text"
+        android:text="@string/lbl_res_text"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/res_text"
+        android:layout_toRightOf="@id/lbl_result_text" />
+
+
 </RelativeLayout>

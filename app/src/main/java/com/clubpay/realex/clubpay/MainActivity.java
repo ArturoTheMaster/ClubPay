@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private BeaconManager beaconManager;
 
     public static  String HPP_MOTE_ID = "moteId";
+    public static  String HPP_IMEI = "phoneId";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +71,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onEnteredRegion(com.estimote.sdk.Region region, List<Beacon> list) {
                 showNotification(
-                        "Your gate closes in 47 minutes.",
-                        "Current security wait time is 15 minutes, "
-                                + "and it's a 5 minute walk from security to the gate. "
-                                + "Looks like you've got plenty of time!");
+                        "New amazing offer !!",
+                        "Join now");
                 new HttpRequestTask().execute();
 
 
@@ -139,21 +138,23 @@ public class MainActivity extends AppCompatActivity {
                 ServerModel model = new ServerModel();
                 TelephonyManager tMgr = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
                 String imeiNo = tMgr.getDeviceId();
+
                 model.setImeiNo(imeiNo);
                 String url = AMAZONE_URL_TMP.concat("/payAction?phoneId=").concat(imeiNo);
                 ResponseEntity ent = restTemplate.postForEntity(url, model, Boolean.class);
                 Boolean isAlreadyReg = (Boolean)ent.getBody();
+                String moteId=getIntent().getStringExtra(MainActivity.HPP_MOTE_ID);
                 if(!isAlreadyReg){
-                    //TODO => pass the payment amount to the HPP act.
-                    Intent intent = new Intent(getApplicationContext(), HPP.class);
-                    String moteId=getIntent().getStringExtra(MainActivity.HPP_MOTE_ID);
-                    intent.putExtra(MainActivity.HPP_MOTE_ID, moteId);
-                    startActivity(intent);
+                    Intent hppIntent = new Intent(getApplicationContext(), HPP.class);
+                    hppIntent.putExtra(MainActivity.HPP_MOTE_ID, moteId);
+                    hppIntent.putExtra(MainActivity.HPP_IMEI, imeiNo);
+                    startActivity(hppIntent);
                 }
-                //Map<String,String> queryParameter = new HashMap<String,String>();
-                //queryParameter.put("phoneId",imeiNo);
-                //ResponseEntity ent = restTemplate.postForEntity("http://localhost:8080/payAction", model, Boolean.class, queryParameter);
+                else{
 
+                    String urlPay = AMAZONE_URL_TMP;
+
+                }
                 return ent;
             } catch (Exception e) {
                 Log.e("MainActivity", e.getMessage(), e);

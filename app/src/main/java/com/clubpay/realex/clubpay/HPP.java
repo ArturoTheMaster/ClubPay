@@ -18,7 +18,7 @@ import com.realexpayments.hpp.HPPResponse;
 
 public class HPP extends AppCompatActivity implements HPPManagerListener {
 
-    private static String HPP_RESPONSE_RES ="hppResponse";
+    public static String HPP_RESPONSE_RES ="hppResponse";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +44,16 @@ public class HPP extends AppCompatActivity implements HPPManagerListener {
         HPPManager manager = new HPPManager();
 
         String moteId = getIntent().getStringExtra(MainActivity.HPP_MOTE_ID);
+        String imei = getIntent().getStringExtra(MainActivity.HPP_IMEI);
         manager.setHppRequestProducerURL("http://clubpay.vrwuqqpad3.eu-west-1.elasticbeanstalk.com/generateJsonRequest");
         manager.setHppURL("https://hpp.test.realexpayments.com/pay");
-        manager.setHppResponseConsumerURL("http://10.0.2.2:8080/hppResponseConsumer");
+        manager.setHppResponseConsumerURL("http://clubpay.vrwuqqpad3.eu-west-1.elasticbeanstalk.com/validateJsonResponse");
+        manager.setMerchantId(moteId +","+ imei);
+        manager.setCommentOne(moteId);
+        manager.setCommentTwo(imei);
+
         manager.setSupplementaryData(MainActivity.HPP_MOTE_ID,moteId);
+        manager.setSupplementaryData(MainActivity.HPP_IMEI,imei);
 
 
 

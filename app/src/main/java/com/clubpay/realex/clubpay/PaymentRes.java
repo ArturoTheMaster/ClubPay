@@ -6,6 +6,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
+
+import com.estimote.sdk.repackaged.gson_v2_3_1.com.google.gson.Gson;
+import com.estimote.sdk.repackaged.gson_v2_3_1.com.google.gson.GsonBuilder;
+import com.realexpayments.hpp.HPPResponse;
 
 public class PaymentRes extends AppCompatActivity {
 
@@ -24,6 +29,13 @@ public class PaymentRes extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        String jsonResponse = getIntent().getStringExtra(HPP.HPP_RESPONSE_RES);
+        Gson gson = new GsonBuilder().create();
+        HPPResponse response = gson.fromJson(jsonResponse, HPPResponse.class);
+
+        TextView payResult = (TextView) findViewById(R.id.res_text);
+        payResult.setText("Successfull");
     }
 
 }
