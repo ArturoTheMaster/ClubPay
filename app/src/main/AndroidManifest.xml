@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
         android:allowBackup="true"
@@ -22,6 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".HPP"
+            android:label="@string/title_activity_hpp"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PaymentRes"
+            android:label="@string/title_activity_payment_res"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
